@@ -1,4 +1,4 @@
-#flutter_event_management
+# flutter_event_management
 
 A new Flutter project.
 
