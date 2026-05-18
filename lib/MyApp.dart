@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Screen/Splash.dart' as SplashScreen;
 
 class MyApp extends StatelessWidget {
@@ -8,24 +9,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Event Management',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        // 1. Set the overall brightness to dark mode
+        brightness: Brightness.dark,
+
+        // 2. Set your exact brand guide Dark Background globally
+        // Now, every new Scaffold you create will have this color automatically!
+        scaffoldBackgroundColor: const Color(0xFF10172A),
+
+        // 3. Use your energetic Neon Pink as the primary brand color
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFFF1493),
+          brightness: Brightness
+              .dark, // Ensures the scheme generates dark-mode appropriate contrasts
+        ),
+
+        // 4. Apply Poppins globally to all text in the app
+        // We pass ThemeData.dark().textTheme inside so the default text color is white
+        textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
       ),
       home: const SplashScreen.Splash(),
     );
