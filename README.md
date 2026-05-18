@@ -1,4 +1,4 @@
-# flutter_hostel_problem_resolution
+#flutter_event_management
 
 A new Flutter project.
 
