@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -48,11 +49,7 @@ class _SplashState extends State<Splash> {
               const Spacer(),
 
               // Logo / Icon
-              const Icon(
-                Icons.event,
-                size: 70,
-                color: Color(0xFF8B5CF6), // Bright pop of color
-              ),
+              Image.asset('images/Logo.png', width: 100, height: 100),
               const SizedBox(height: 20),
 
               const Text(
@@ -66,7 +63,7 @@ class _SplashState extends State<Splash> {
               ),
               const SizedBox(height: 40),
 
-              const CircularProgressIndicator(color: Color(0xFF8B5CF6)),
+              const CircularProgressIndicator(color: Color(0xFFFF1493)),
               const SizedBox(height: 20),
               Text(
                 "Loading...",
