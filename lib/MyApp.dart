@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Screen/Splash.dart' as SplashScreen;
+// import 'Screen/Splash.dart' as SplashScreen;
+// import 'Screen/Home.dart' as HomeScreen;
+import 'FragmentHolder.dart' as FragmentHolderWidget;
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  var data = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +24,6 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
 
         // 2. Set your exact brand guide Dark Background globally
-        // Now, every new Scaffold you create will have this color automatically!
         scaffoldBackgroundColor: const Color(0xFF10172A),
 
         // 3. Use your energetic Neon Pink as the primary brand color
@@ -27,10 +34,29 @@ class MyApp extends StatelessWidget {
         ),
 
         // 4. Apply Poppins globally to all text in the app
-        // We pass ThemeData.dark().textTheme inside so the default text color is white
         textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
       ),
-      home: const SplashScreen.Splash(),
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF1E293B),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('images/Logo.png', width: 55, height: 55),
+              Text(
+                "Event\nManagement",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // centerTitle: false,
+        body: FragmentHolderWidget.FragmentHolder(),
+        // elevation: 0,
+      ), // body: const FragmentHolderWidget.FragmentHolder(),
     );
   }
 }
