@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hostel_problem_resolution/Screen/Splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Screen/Home.dart';
 import 'Screen/UpdateEvent.dart';
+import 'Screen/Event.dart';
 
 class FragmentHolder extends StatefulWidget {
   const FragmentHolder({super.key});
@@ -11,10 +13,10 @@ class FragmentHolder extends StatefulWidget {
 }
 
 class _FragmentHolderState extends State<FragmentHolder> {
-  final List<Map<String, dynamic>> data = [
-    {"title": "Music Concert", "date": "20 May 2026", "location": "Ahmedabad"},
-    {"title": "Tech Seminar", "date": "25 May 2026", "location": "Gandhinagar"},
-    {"title": "College Fest", "date": "30 May 2026", "location": "Surat"},
+  final List<Event> data = [
+    Event(title: "Music Concert", date: "20 May 2026", location: "Ahmedabad"),
+    Event(title: "Tech Seminar", date: "25 May 2026", location: "Gandhinagar"),
+    Event(title: "College Fest", date: "30 May 2026", location: "Surat"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,16 +38,23 @@ class _FragmentHolderState extends State<FragmentHolder> {
           WidgetBuilder builder;
           switch (settings.name) {
             case '/':
-              builder = (BuildContext context) => EventScreen(data: data);
+            // builder = (BuildContext context) => Splash();
+            // break;
+
             case '/home':
               builder = (BuildContext context) => EventScreen(data: data);
+              break;
+
             case '/update':
               builder = (BuildContext context) => UpdateEvent(
                 data: data,
-                index: settings.arguments?["index"] ?? 0,
+                index: (settings.arguments as Map)["index"],
               );
+              break;
+
             default:
-              builder = (BuildContext context) => Text("Not Found!");
+              builder = (BuildContext context) =>
+                  const Scaffold(body: Center(child: Text("Not Found!")));
           }
           return MaterialPageRoute(builder: builder, settings: settings);
         },

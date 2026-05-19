@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Event.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({super.key, required this.data});
 
-  final List<Map<String, dynamic>> data;
+  final List<Event> data;
 
   @override
   State<EventScreen> createState() => _EventScreenState();
@@ -15,25 +16,25 @@ class _EventScreenState extends State<EventScreen> {
 
   void addEvent() {
     setState(() {
-      widget.data.add({
-        "title": "New Event",
-        "date": "01 June 2026",
-        "location": "Rajkot",
-      });
+      widget.data.add(
+        Event(title: "New Event", date: "01 June 2026", location: "Rajkot"),
+      );
     });
   }
 
-  void editEvent(int index) {
-    Navigator.pushNamed(
+  void editEvent(int index) async {
+    final result = await Navigator.pushNamed(
       context,
       '/update',
       arguments: {"index": index, "data": widget.data},
     );
-    setState(() {
-      widget.data[index]["title"] = "Updated Event";
-      widget.data[index]["date"] = widget.data[index]["date"];
-      widget.data[index]["location"] = widget.data[index]["location"];
-    });
+
+    if (result != null && result is Event) {
+      // 4. NOW we safely run setState to update the UI with the fresh data
+      setState(() {
+        widget.data[index] = result;
+      });
+    }
   }
 
   void deleteEvent(int index) {
@@ -104,7 +105,7 @@ class _EventScreenState extends State<EventScreen> {
                       ),
                     ),
                     title: Text(
-                      event["title"],
+                      event.title,
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -125,7 +126,7 @@ class _EventScreenState extends State<EventScreen> {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                event["date"],
+                                event.date,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white.withOpacity(0.7),
                                   fontSize: 13,
@@ -143,7 +144,7 @@ class _EventScreenState extends State<EventScreen> {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                event["location"],
+                                event.location,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white.withOpacity(0.7),
                                   fontSize: 13,

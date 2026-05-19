@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'Screen/Splash.dart' as SplashScreen;
-// import 'Screen/Home.dart' as HomeScreen;
 import 'FragmentHolder.dart' as FragmentHolderWidget;
 
 class MyApp extends StatefulWidget {
@@ -13,7 +11,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  var data = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
