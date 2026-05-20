@@ -14,22 +14,47 @@ class FragmentHolder extends StatefulWidget {
 }
 
 class _FragmentHolderState extends State<FragmentHolder> {
-  final List<Event> data = [
-    Event(title: "Music Concert", date: "20 May 2026", location: "Ahmedabad"),
-    Event(title: "Tech Seminar", date: "25 May 2026", location: "Gandhinagar"),
-    Event(title: "College Fest", date: "30 May 2026", location: "Surat"),
+  List<Event> data = [
+    Event(title: "Music Concert", date: "2026-05-30", location: "Ahmedabad"),
+    Event(title: "Tech Seminar", date: "2026-05-25", location: "Gandhinagar"),
+    Event(title: "College Fest", date: "2026-05-21", location: "Surat"),
   ];
+
+  void deleteEvent(int index) {
+    data.removeAt(index);
+    setState(() {
+      data = data;
+    });
+  }
+
+  void addEvent(BuildContext context) async {
+    final result = await Navigator.pushNamed(context, '/add');
+
+    if (result != null && result is Event) {
+      data.add(result);
+      setState(() {
+        data = data;
+      });
+    }
+  }
+
+  void editEvent(BuildContext context, int index) async {
+    final result = await Navigator.pushNamed(
+      context,
+      '/update',
+      arguments: {"index": index, "data": data},
+    );
+
+    if (result != null && result is Event) {
+      data[index] = result;
+      setState(() {
+        data = data;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // switch (settings.name) {
-    //   case "/home":
-    //       builder = (BuildContext context) => const EventScreen(data: data)
-    //   case "/update":
-    //       builder = (BuildContext context) => const UpdateEvent(data: data, index: 0)
-    //   default:
-    // }
-    // return MaterialPageRoute(builder: builder, settings: settings)
-    // );
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -43,7 +68,12 @@ class _FragmentHolderState extends State<FragmentHolder> {
             // break;
 
             case '/home':
-              builder = (BuildContext context) => EventScreen(data: data);
+              builder = (BuildContext context) => EventScreen(
+                data: data,
+                deleteEvent: deleteEvent,
+                addEvent: addEvent,
+                editEvent: editEvent,
+              );
               break;
 
             case '/update':

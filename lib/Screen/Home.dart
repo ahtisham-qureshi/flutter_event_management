@@ -2,48 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Event.dart';
 
-class EventScreen extends StatefulWidget {
-  const EventScreen({super.key, required this.data});
+class EventScreen extends StatelessWidget {
+  const EventScreen({
+    super.key,
+    required this.data,
+    required this.deleteEvent,
+    required this.addEvent,
+    required this.editEvent,
+  });
 
   final List<Event> data;
-
-  @override
-  State<EventScreen> createState() => _EventScreenState();
-}
-
-class _EventScreenState extends State<EventScreen> {
-  // Mock data representing events
-
-  void addEvent() async {
-    final result = await Navigator.pushNamed(context, '/add');
-
-    if (result != null && result is Event) {
-      setState(() {
-        widget.data.add(result);
-      });
-    }
-  }
-
-  void editEvent(int index) async {
-    final result = await Navigator.pushNamed(
-      context,
-      '/update',
-      arguments: {"index": index, "data": widget.data},
-    );
-
-    if (result != null && result is Event) {
-      // 4. NOW we safely run setState to update the UI with the fresh data
-      setState(() {
-        widget.data[index] = result;
-      });
-    }
-  }
-
-  void deleteEvent(int index) {
-    setState(() {
-      widget.data.removeAt(index);
-    });
-  }
+  final Function deleteEvent;
+  final Function addEvent;
+  final Function editEvent;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +33,7 @@ class _EventScreenState extends State<EventScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
-              onPressed: addEvent,
+              onPressed: () => addEvent(context),
               icon: const Icon(
                 Icons.add_circle,
                 size: 28,
@@ -73,10 +44,10 @@ class _EventScreenState extends State<EventScreen> {
         ],
       ),
       body: ListView.builder(
-        itemCount: widget.data.length,
+        itemCount: data.length,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         itemBuilder: (context, index) {
-          final event = widget.data[index];
+          final event = data[index];
 
           return Card(
             margin: const EdgeInsets.only(bottom: 16),
@@ -163,7 +134,7 @@ class _EventScreenState extends State<EventScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton.icon(
-                        onPressed: () => editEvent(index),
+                        onPressed: () => editEvent(context, index),
                         style: TextButton.styleFrom(
                           foregroundColor: const Color(
                             0xFF38BDF8,
