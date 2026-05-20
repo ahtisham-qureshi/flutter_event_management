@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
-
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
+class _SplashState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
