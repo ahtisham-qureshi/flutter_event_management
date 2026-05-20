@@ -7,8 +7,8 @@ import 'Screen/Event.dart';
 import 'Screen/AddEvent.dart';
 
 class FragmentHolder extends StatefulWidget {
-  const FragmentHolder({super.key});
-
+  FragmentHolder({super.key, required this.isNav});
+  Function isNav;
   @override
   State<FragmentHolder> createState() => _FragmentHolderState();
 }
@@ -64,8 +64,8 @@ class _FragmentHolderState extends State<FragmentHolder> {
           WidgetBuilder builder;
           switch (settings.name) {
             case '/':
-            // builder = (BuildContext context) => Splash();
-            // break;
+              builder = (BuildContext context) => Splash(isNav: widget.isNav);
+              break;
 
             case '/home':
               builder = (BuildContext context) => EventScreen(

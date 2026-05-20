@@ -28,7 +28,6 @@ class EventScreen extends StatelessWidget {
         ),
         centerTitle: false,
         backgroundColor: Colors.transparent,
-        elevation: 0,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
