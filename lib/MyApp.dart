@@ -10,6 +10,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool nav = false;
+
+  void isNav(bool flag) {
+    nav = flag;
+    setState(() {});
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,24 +41,25 @@ class _MyAppState extends State<MyApp> {
         textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
       ),
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF1E293B),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('images/Logo.png', width: 55, height: 55),
-              Text(
-                "Event\nManagement",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+        appBar: nav
+            ? AppBar(
+                backgroundColor: const Color(0xFF1E293B),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('images/Logo.png', width: 55, height: 55),
+                    Text(
+                      "Event\nManagement",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ),
-        // centerTitle: false,
-        body: FragmentHolderWidget.FragmentHolder(),
+              )
+            : null,
+        body: FragmentHolderWidget.FragmentHolder(isNav: isNav),
         // elevation: 0,
       ), // body: const FragmentHolderWidget.FragmentHolder(),
     );

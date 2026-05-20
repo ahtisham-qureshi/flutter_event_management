@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class _SplashState extends StatelessWidget {
+class Splash extends StatefulWidget {
+  Splash({super.key, required this.isNav});
+  Function isNav;
+
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, '/home');
+      widget.isNav(true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
