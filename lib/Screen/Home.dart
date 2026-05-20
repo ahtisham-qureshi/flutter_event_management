@@ -14,12 +14,14 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   // Mock data representing events
 
-  void addEvent() {
-    setState(() {
-      widget.data.add(
-        Event(title: "New Event", date: "01 June 2026", location: "Rajkot"),
-      );
-    });
+  void addEvent() async {
+    final result = await Navigator.pushNamed(context, '/add');
+
+    if (result != null && result is Event) {
+      setState(() {
+        widget.data.add(result);
+      });
+    }
   }
 
   void editEvent(int index) async {
