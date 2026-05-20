@@ -21,7 +21,7 @@ class _UpdateEventState extends State<UpdateEvent> {
   @override
   void initState() {
     super.initState();
-    // 2. Initialize them exactly ONCE when the screen loads [cite: 125]
+
     final currentEvent = widget.data[widget.index];
     _titleController = TextEditingController(text: currentEvent.title);
     _dateController = TextEditingController(text: currentEvent.date);
