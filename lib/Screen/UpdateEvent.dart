@@ -37,6 +37,36 @@ class _UpdateEventState extends State<UpdateEvent> {
     super.dispose();
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(), // Prevents picking past dates
+      lastDate: DateTime(2030),
+      builder: (context, child) {
+        // Theme the calendar to match your brand
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: Color(0xFFFF1493), // Neon Pink header
+              onPrimary: Colors.white,
+              surface: Color(0xFF1E293B), // Dark slate background
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        // Format: YYYY-MM-DD
+        _dateController.text =
+            "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +97,11 @@ class _UpdateEventState extends State<UpdateEvent> {
             const SizedBox(height: 20),
 
             _buildInputLabel("Date:"),
-            _buildTextField(_dateController),
+            _buildTextField(
+              _dateController,
+              readOnly: true,
+              onTap: () => _selectDate(context),
+            ),
             const SizedBox(height: 20),
 
             _buildInputLabel("Location:"),
@@ -77,6 +111,11 @@ class _UpdateEventState extends State<UpdateEvent> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  if (_titleController.text.isEmpty ||
+                      _dateController.text.isEmpty) {
+                    // Pro-tip: You could show a SnackBar here telling the user to fill all fields!
+                    return;
+                  }
                   Event updatedEvent = Event(
                     title: _titleController.text,
                     date: _dateController.text,
@@ -128,9 +167,15 @@ class _UpdateEventState extends State<UpdateEvent> {
   }
 
   // Helper method to make TextFields look premium on a dark background
-  Widget _buildTextField(TextEditingController controller) {
+  Widget _buildTextField(
+    TextEditingController controller, {
+    bool readOnly = false,
+    VoidCallback? onTap,
+  }) {
     return TextField(
       controller: controller,
+      readOnly: readOnly, // Stops keyboard if true
+      onTap: onTap,
       style: GoogleFonts.poppins(
         color: Colors.white,
       ), // Text typed by user is white

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hostel_problem_resolution/Screen/Splash.dart';
+import 'Screen/Splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Screen/Home.dart';
 import 'Screen/UpdateEvent.dart';
 import 'Screen/Event.dart';
+import 'Screen/AddEvent.dart';
 
 class FragmentHolder extends StatefulWidget {
   const FragmentHolder({super.key});
@@ -50,6 +51,10 @@ class _FragmentHolderState extends State<FragmentHolder> {
                 data: data,
                 index: (settings.arguments as Map)["index"],
               );
+              break;
+
+            case '/add':
+              builder = (BuildContext context) => AddEventScreen();
               break;
 
             default:
