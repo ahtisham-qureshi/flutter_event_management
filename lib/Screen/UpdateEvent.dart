@@ -151,7 +151,6 @@ class _UpdateEventState extends State<UpdateEvent> {
     );
   }
 
-  // Helper method to keep your typography consistent [cite: 108]
   Widget _buildInputLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
