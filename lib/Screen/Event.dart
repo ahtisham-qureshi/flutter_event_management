@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Event {
   String title;
   String date;
@@ -7,5 +9,13 @@ class Event {
 
   Map<String, dynamic> toJson() {
     return {"title": title, "date": date, "location": location};
+  }
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      title: json['title'],
+      date: json['date'],
+      location: json['location'],
+    );
   }
 }
