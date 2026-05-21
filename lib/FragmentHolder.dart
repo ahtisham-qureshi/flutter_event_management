@@ -17,6 +17,10 @@ class FragmentHolder extends StatefulWidget {
 }
 
 class _FragmentHolderState extends State<FragmentHolder> {
+  _FragmentHolderState() {
+    preData();
+  }
+
   List<Event> data = [
     Event(title: "Music Concert", date: "2026-05-30", location: "Ahmedabad"),
     Event(title: "Tech Seminar", date: "2026-05-25", location: "Gandhinagar"),
@@ -61,15 +65,30 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
   Future<void> saveData() async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final SharedPreferences pref = await SharedPreferences.getInstance();
 
       String jsonString = jsonEncode(data.map((e) => e.toJson()).toList());
 
-      await prefs.setString("Event_Info", jsonString);
+      await pref.setString("Event_Info", jsonString);
       print('Error Free Code');
     } catch (e) {
       print('Error saving data : $e');
     }
+  }
+
+  Future<void> preData() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    String? jsonString = pref.getString('Event_Info');
+
+    if (jsonString == null) {
+      return;
+    }
+
+    List<dynamic> jsonMap = jsonDecode(jsonString);
+    data = jsonMap.map((e) => Event.fromJson(e)).toList();
+    setState(() {
+      data = data;
+    });
   }
 
   @override
