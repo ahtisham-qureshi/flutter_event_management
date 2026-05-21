@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'Screen/Splash.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Screen/Home.dart';
 import 'Screen/UpdateEvent.dart';
 import 'Screen/Event.dart';
@@ -25,6 +28,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
     setState(() {
       data = data;
     });
+    saveData();
   }
 
   void addEvent(BuildContext context) async {
@@ -35,6 +39,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
       setState(() {
         data = data;
       });
+      saveData();
     }
   }
 
@@ -50,6 +55,20 @@ class _FragmentHolderState extends State<FragmentHolder> {
       setState(() {
         data = data;
       });
+      saveData();
+    }
+  }
+
+  Future<void> saveData() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      String jsonString = jsonEncode(data.map((e) => e.toJson()).toList());
+
+      await prefs.setString("Event_Info", jsonString);
+      print('Error Free Code');
+    } catch (e) {
+      print('Error saving data : $e');
     }
   }
 
