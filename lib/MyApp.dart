@@ -47,7 +47,11 @@ class _MyAppState extends State<MyApp> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('images/Logo.png', width: 55, height: 55),
+                    Image.asset(
+                      'assets/images/Logo.png',
+                      width: 55,
+                      height: 55,
+                    ),
                     Text(
                       "Event\nManagement",
                       style: GoogleFonts.poppins(

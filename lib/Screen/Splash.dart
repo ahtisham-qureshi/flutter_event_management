@@ -14,7 +14,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/home');
       widget.isNav(true);
     });
@@ -58,7 +58,7 @@ class _SplashState extends State<Splash> {
               const Spacer(),
 
               // Logo / Icon
-              Image.asset('images/Logo.png', width: 130, height: 130),
+              Image.asset('assets/images/Logo.png', width: 130, height: 130),
 
               const SizedBox(height: 20),
 

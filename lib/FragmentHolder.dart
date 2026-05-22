@@ -93,7 +93,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Navigator(
